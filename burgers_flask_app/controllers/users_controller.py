@@ -1,6 +1,6 @@
 from burgers_flask_app.models.user_model import User
 from burgers_flask_app import app
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, session
 
 # RUTAS DE LECTURA (READ)
 @app.route('/')
@@ -17,5 +17,13 @@ def crear_usuario():
         'password': request.form['psw']
     }
     print(data, "EFECTIVAMENTE ATRAPAMOS LA INFO DEL FORMULARIO")
-    User.registro(data) # Llamar al metodo registro de la clase usuario para guardar info en la bd
+    id_usuario = User.registro(data) # Llamar al metodo registro de la clase usuario para guardar info en la bd
+    print(id_usuario, "QUE RETORNO EL HABER REGISTRADO UN USUARIO NUEVO?")
+    session['id_usuario'] = id_usuario #Estoy almacenando el id del usuario en la session
     return redirect('/burger')
+
+
+@app.route('/clearsession')
+def limpiar_session():
+    session.clear()
+    return redirect('/')

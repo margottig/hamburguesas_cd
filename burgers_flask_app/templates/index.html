@@ -28,6 +28,7 @@
         <div class="form-group">
             <label for="calories">Calories:</label>
             <input type="number" min="0" name="calories" id="calories" class="form-control">
+            <input type="hidden" name="id_usuario" value="{{session['id_usuario']}}">
         </div>
         <input type="submit" value="Create Burger" class="btn btn-primary btn-outline-dark">
     </form>

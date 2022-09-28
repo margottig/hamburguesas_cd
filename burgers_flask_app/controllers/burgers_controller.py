@@ -1,18 +1,23 @@
 from burgers_flask_app.models.burger_model import Burger
 from burgers_flask_app import app
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, session
 
 @app.route('/burger')
 def index():
+    # validar si el usaurio se encuentra registrado
+    if 'id_usuario' not in session:
+        return redirect('/')
     return render_template("index.html")
 
 @app.route('/create',methods=['POST'])
 def create():
     data = {
+
         "name":request.form['name'],
         "bun": request.form['bun'],
         "meat": request.form['meat'],
-        "calories": request.form['calories']
+        "calories": request.form['calories'],
+        "user_id":request.form['id_usuario']
     }
     Burger.save(data)
     return redirect('/burgers')
@@ -20,6 +25,9 @@ def create():
 
 @app.route('/burgers')
 def burgers():
+        # validar si el usaurio se encuentra registrado
+    if 'id_usuario' not in session:
+        return redirect('/')
     return render_template("results.html",all_burgers=Burger.get_all())
 
 

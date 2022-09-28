@@ -12,7 +12,7 @@ class Burger:
 
     @classmethod
     def save(cls,data):
-        query = "INSERT INTO burgers (name,bun,meat,calories,created_at,updated_at) VALUES (%(name)s,%(bun)s,%(meat)s,%(calories)s,NOW(),NOW())"
+        query = "INSERT INTO burgers (name,bun,meat,calories,created_at,updated_at, user_id) VALUES (%(name)s,%(bun)s,%(meat)s,%(calories)s,NOW(),NOW(),%(user_id)s)"
         return connectToMySQL('login_reg').query_db(query,data)
 
     @classmethod
