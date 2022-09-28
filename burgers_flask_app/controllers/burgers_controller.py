@@ -2,7 +2,7 @@ from burgers_flask_app.models.burger_model import Burger
 from burgers_flask_app import app
 from flask import render_template, redirect, request
 
-@app.route('/')
+@app.route('/burger')
 def index():
     return render_template("index.html")
 
