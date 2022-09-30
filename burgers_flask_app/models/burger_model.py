@@ -1,4 +1,5 @@
 from burgers_flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
 
 class Burger:
     def __init__(self,data):
@@ -40,3 +41,24 @@ class Burger:
     def destroy(cls,data):
         query = "DELETE FROM burgers WHERE id = %(id)s;"
         return connectToMySQL('login_reg').query_db(query,data)
+
+
+    @staticmethod
+    def validate_burger(burger):
+        # otros métodos Burger más allá
+        # los métodos estáticos no tienen self o cls pasados a los parámetros
+        # necesitamos tomar un parámetro para representar nuestra hamburguesa
+        is_valid = True # asumimos que esto es true
+        if len(burger['name']) < 3:
+            flash("Name must be at least 3 characters.")
+            is_valid = False
+        if len(burger['bun']) < 3:
+            flash("Bun must be at least 3 characters.")
+            is_valid = False
+        if not burger['calories'] or int(burger['calories']) < 200 :
+            flash("Calories must be 200 or greater.")
+            is_valid = False
+        if len(burger['meat']) < 3:
+            flash("Bun must be at least 3 characters.")
+            is_valid = False
+        return is_valid

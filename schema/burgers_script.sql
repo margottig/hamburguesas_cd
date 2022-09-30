@@ -52,6 +52,41 @@ CREATE TABLE IF NOT EXISTS `login_reg`.`burgers` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `login_reg`.`toppings`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `login_reg`.`toppings` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `topping_name` VARCHAR(255) NULL,
+  `created_at` DATETIME NULL DEFAULT NOW(),
+  `updated_at` DATETIME NULL DEFAULT NOW(),
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `login_reg`.`add_ons`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `login_reg`.`add_ons` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `topping_id` INT NULL,
+  `burger_id` INT NULL,
+  INDEX `fk_toppings_has_burgers_burgers1_idx` (`burger_id` ASC) VISIBLE,
+  INDEX `fk_toppings_has_burgers_toppings1_idx` (`topping_id` ASC) VISIBLE,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_toppings_has_burgers_toppings1`
+    FOREIGN KEY (`topping_id`)
+    REFERENCES `login_reg`.`toppings` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_toppings_has_burgers_burgers1`
+    FOREIGN KEY (`burger_id`)
+    REFERENCES `login_reg`.`burgers` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

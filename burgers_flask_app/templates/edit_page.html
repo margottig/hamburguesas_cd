@@ -40,11 +40,9 @@
         <div class="form-group">
             <label for="topping_one">Topping One:</label>
             <input type="text" name="topping_one" id="topping_one" class="form-control" value="{{burger['topping_one']}}">
+            <input type="hidden" name="burger_id" value="{{burger['id']}}">
         </div>
-        <div class="form-group">
-            <label for="topping_two">Topping Two:</label>
-            <input type="text" name="topping_two" id="topping_two" class="form-control" value="{{burger['topping_two']}}">
-        </div>
+   
         <input type="submit" value="Update Burger" class="btn btn-primary btn-outline-dark">
     </form>
 </body>

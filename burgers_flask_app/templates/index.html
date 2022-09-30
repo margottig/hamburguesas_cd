@@ -10,7 +10,15 @@
 </head>
 <body>
     <a href="/burgers">See all burgers</a>
+
     <form action="/create" method="post" class="p-3 col-4 mx-auto my-5 bg-dark text-light">
+        {% with messages = get_flashed_messages() %}     <!-- declara una variable llamada mensajes -->
+            {% if messages %}                               <!-- comprobar si hay algún mensaje -->
+                {% for message in messages %}            <!-- recorrer los mensajes -->
+                    <p>{{message}}</p>                   <!-- muestra cada mensaje en una etiqueta de párrafo -->
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <h2 class="text-center text-primary">Create Burger:</h2>
     
         <div class="form-group">
