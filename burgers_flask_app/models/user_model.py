@@ -1,4 +1,9 @@
 from burgers_flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
+import re # el módulo regex
+# crea un objeto de expresión regular que usaremos más adelante
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+
 
 class User:
     def __init__(self, data):
@@ -19,3 +24,17 @@ class User:
         return connectToMySQL('login_reg').query_db(consulta, data)
 
     #METODOS DE LECTURA
+
+
+    #METODOS ESTATICOS - VALIDACION
+    @staticmethod
+    def validate_user( user ):
+        is_valid = True
+        # prueba si un campo coincide con el patrón
+        if not EMAIL_REGEX.match(user['email']): 
+            flash("Invalid email address!")
+            is_valid = False
+        if len(user['fname']) < 2:
+            flash(" Por favor tu nombre debe ser mayor a 2 letras ")
+            is_valid = False
+        return is_valid

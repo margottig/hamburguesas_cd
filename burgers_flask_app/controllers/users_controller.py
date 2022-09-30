@@ -10,6 +10,10 @@ def raiz():
 # RUTAS DE CREACION (CREATE)
 @app.route('/crear_usuario', methods=['POST'])
 def crear_usuario():
+    #validar si el correo electronico cumple con un patron especifico
+    if not User.validate_user(request.form):
+        # redirigimos a la plantilla con el formulario
+        return redirect('/')
     data={
         'first_name': request.form['fname'],
         'last_name': request.form['lname'],

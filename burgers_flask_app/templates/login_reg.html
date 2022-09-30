@@ -11,6 +11,13 @@
     <h1>Formulario de Registro</h1>
 
     <form action="/crear_usuario" method="POST">
+        {% with messages = get_flashed_messages() %}     <!-- declara una variable llamada mensajes -->
+        {% if messages %}                               <!-- comprobar si hay algún mensaje -->
+            {% for message in messages %}            <!-- recorrer los mensajes -->
+                <p class="text-danger">{{message}}</p>                   <!-- muestra cada mensaje en una etiqueta de párrafo -->
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="mb-3">
             <label for="fname">First Name:</label>
             <input type="text" name="fname">
